@@ -1,1 +1,3 @@
-print ('Runnning main for kabbes_menu')
+from kabbes_menu import Menu
+m = Menu()
+m.run()
