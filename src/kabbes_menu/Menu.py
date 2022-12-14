@@ -70,7 +70,7 @@ class Menu( ParentClass ):
             Child.run()
 
     def get_Child_user( self ):
-        Child = ps.get_selection_from_list( list(self) )
+        Child = ps.get_selection_from_list( list(self), allow_null=True )
         return Child
 
     def run_method_user( self ):
