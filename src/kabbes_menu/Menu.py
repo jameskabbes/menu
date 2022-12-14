@@ -1,6 +1,23 @@
 from parent_class import ParentClass
 from kabbes_menu import CRTI
 import py_starter as ps
+import functools
+
+
+
+def run_wrapper( method ):
+
+    @functools.wraps( method )
+    def wrapper( self, *args, **kwargs ):
+
+        self.pre_run()
+        output = method( self, *args, **kwargs )
+        self.post_run()
+
+        return output
+
+    return wrapper
+
 
 class Menu( ParentClass ):
 
@@ -76,6 +93,7 @@ class Menu( ParentClass ):
 
         return viable_Children
 
+    @run_wrapper
     def run( self ):
 
         while True:
@@ -101,6 +119,13 @@ class Menu( ParentClass ):
 
         self.exit()
 
+    def pre_run( self ):
+        pass
+
+    def post_run( self ):
+        pass
+
     def exit( self ):
         pass
-        
+
+
