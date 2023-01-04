@@ -2,9 +2,9 @@ import real_time_input
 
 class CRTI( real_time_input.RealTimeInput ):
 
-    def __init__( self, calling_from, **kwargs ):
+    def __init__( self, calling_from, *args, **kwargs ):
 
-        real_time_input.RealTimeInput.__init__( self, **kwargs )
+        real_time_input.RealTimeInput.__init__( self, *args, **kwargs )
         self.Aself = calling_from
 
     def search( self, **kwargs ):
