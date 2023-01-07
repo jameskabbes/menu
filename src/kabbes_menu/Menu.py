@@ -1,4 +1,4 @@
-import kabbes_client
+import kabbes_user_client
 import kabbes_menu
 from kabbes_menu import CRTI
 import py_starter as ps
@@ -19,7 +19,7 @@ def run_wrapper( method ):
     return wrapper
 
 
-class Menu( kabbes_client.Client ):
+class Menu( kabbes_user_client.Client ):
 
     _OVERRIDE_OPTIONS = {}
     _SEARCHABLE_ATTS = []
@@ -31,17 +31,13 @@ class Menu( kabbes_client.Client ):
 
     def __init__( self, *args, **kwargs ):
 
-        kabbes_client.Client.__init__( self, *args, **kwargs )
+        kabbes_user_client.Client.__init__( self, *args, **kwargs )
         self._Children = []
         self.RTI = CRTI( self )
-
         self.update_options()
 
     def update_options( self ):
-
-        options_config = self.cfg.get_attr( 'options' )
-        for key in self._OVERRIDE_OPTIONS:
-            options_config.load_key_value( str(key), self._OVERRIDE_OPTIONS[key] )
+        self.cfg.load_dict( self._OVERRIDE_OPTIONS )
 
     def __len__( self ):
         return len(self._Children)
@@ -95,7 +91,7 @@ class Menu( kabbes_client.Client ):
         while True:
 
             self.print_one_line_atts()
-            for i in [ '{i}. {option_view}'.format( i=key, option_view=value[0] ) for key,value in self.cfg.options.get_dict().items() ]:
+            for i in [ '{i}. {option_view}'.format( i=key, option_view=value[0] ) for key,value in self.cfg['options'].get_dict().items() ]:
                 print (i)
             choice, user_input = self.RTI.get_one_input()
 
@@ -105,9 +101,9 @@ class Menu( kabbes_client.Client ):
 
             if user_input == '':
                 break
-                
-            if user_input in self.cfg.options.get_dict().keys():
-                self.run_method( self.cfg.options.get_dict()[user_input][-1] )
+            
+            if user_input in self.cfg['options'].nodes:
+                self.run_method( self.cfg['options'].nodes[user_input].get_ref_value()[-1] )
 
         self.exit()
 
