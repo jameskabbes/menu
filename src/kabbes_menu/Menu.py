@@ -1,6 +1,6 @@
-import kabbes_user_client
 import kabbes_menu
-from kabbes_menu import CRTI
+from parent_class import ParentClass
+import kabbes_user_client
 import py_starter as ps
 import functools
 
@@ -18,26 +18,27 @@ def run_wrapper( method ):
 
     return wrapper
 
-
-class Menu( kabbes_user_client.Client ):
+class Menu( ParentClass ):
 
     _OVERRIDE_OPTIONS = {}
     _SEARCHABLE_ATTS = []
     _ONE_LINE_ATTS = ['type']
 
+    _OPTIONS_CFG_KEY = 'options'
+
     _CONFIG = {
         "_Dir": kabbes_menu._Dir
     }
 
-    def __init__( self, *args, **kwargs ):
+    cfg = kabbes_user_client.Client( dict=_CONFIG ).cfg
 
-        kabbes_user_client.Client.__init__( self, *args, **kwargs )
+    def __init__( self ):
+
         self._Children = []
-        self.RTI = CRTI( self )
-        self.update_options()
+        self.RTI = kabbes_menu.CRTI( self )
 
-    def update_options( self ):
-        self.cfg.load_dict( self._OVERRIDE_OPTIONS )
+        if self._OVERRIDE_OPTIONS != {}:
+            self.cfg.load_dict( {Menu._OPTIONS_CFG_KEY: self._OVERRIDE_OPTIONS} )
 
     def __len__( self ):
         return len(self._Children)
