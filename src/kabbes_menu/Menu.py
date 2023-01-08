@@ -34,6 +34,8 @@ class Menu( ParentClass ):
 
     def __init__( self ):
 
+        ParentClass.__init__( self )
+
         self._Children = []
         self.RTI = kabbes_menu.CRTI( self )
 
