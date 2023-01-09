@@ -23,14 +23,7 @@ class Menu( ParentClass ):
     _OVERRIDE_OPTIONS = {}
     _SEARCHABLE_ATTS = []
     _ONE_LINE_ATTS = ['type']
-
     _OPTIONS_CFG_KEY = 'options'
-
-    _CONFIG = {
-        "_Dir": kabbes_menu._Dir
-    }
-
-    cfg = kabbes_user_client.Client( dict=_CONFIG ).cfg
 
     def __init__( self ):
 
@@ -38,9 +31,6 @@ class Menu( ParentClass ):
 
         self._Children = []
         self.RTI = kabbes_menu.CRTI( self )
-
-        if self._OVERRIDE_OPTIONS != {}:
-            self.cfg.load_dict( {Menu._OPTIONS_CFG_KEY: self._OVERRIDE_OPTIONS} )
 
     def __len__( self ):
         return len(self._Children)
@@ -94,7 +84,7 @@ class Menu( ParentClass ):
         while True:
 
             self.print_one_line_atts()
-            for i in [ '{i}. {option_view}'.format( i=key, option_view=value[0] ) for key,value in self.cfg['options'].get_dict().items() ]:
+            for i in [ '{i}. {option_view}'.format( i=key, option_view=value[0] ) for key,value in self.cfg_menu[Menu._OPTIONS_CFG_KEY].get_dict().items() ]:
                 print (i)
             choice, user_input = self.RTI.get_one_input()
 
@@ -105,8 +95,8 @@ class Menu( ParentClass ):
             if user_input == '':
                 break
             
-            if user_input in self.cfg['options'].nodes:
-                self.run_method( self.cfg['options'].nodes[user_input].get_ref_value()[-1] )
+            if user_input in self.cfg_menu[Menu._OPTIONS_CFG_KEY].nodes:
+                self.run_method( self.cfg_menu[Menu._OPTIONS_CFG_KEY].nodes[user_input].get_ref_value()[-1] )
 
         self.exit()
 

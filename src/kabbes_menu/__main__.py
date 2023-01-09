@@ -1,3 +1,3 @@
-from kabbes_menu import Menu
-m = Menu()
-m.run()
+from kabbes_menu import Client
+c = Client()
+c.run()

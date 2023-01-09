@@ -8,3 +8,4 @@ _cwd_Dir = do.Dir( do.get_cwd() )
 
 from .CRTI import CRTI
 from .Menu import Menu
+from .Client import Client
