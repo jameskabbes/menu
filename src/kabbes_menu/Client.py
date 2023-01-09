@@ -8,12 +8,13 @@ class Client( kabbes_menu.Menu ):
         "_Dir": kabbes_menu._Dir
     }
 
-    def __init__( self, dict={}, **kwargs ):
+    def __init__( self, dict={}, rti_dict={}, _OVERRIDE_OPTIONS={}, **kwargs ):
 
         dict = ps.merge_dicts( Client.BASE_CONFIG_DICT, dict )
         self.cfg_menu = kabbes_user_client.Client( dict=dict, **kwargs ).cfg
 
         cfg_options_node = self.cfg_menu[ kabbes_menu.Menu._OPTIONS_CFG_KEY ]
         cfg_options_node.load_dict( self._OVERRIDE_OPTIONS )
+        cfg_options_node.load_dict( _OVERRIDE_OPTIONS )
 
         kabbes_menu.Menu.__init__( self )
