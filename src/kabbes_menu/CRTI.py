@@ -1,10 +1,11 @@
 import real_time_input
 
-class CRTI( real_time_input.Client ):
+class CRTI( real_time_input.RealTimeInput ):
 
-    def __init__( self, calling_from, *args, **kwargs ):
+    cfg_rti = real_time_input.Client().cfg_rti
 
-        real_time_input.Client.__init__( self, *args, **kwargs )
+    def __init__( self, calling_from ):
+        real_time_input.RealTimeInput.__init__( self )
         self.Aself = calling_from
 
     def search( self, **kwargs ):
