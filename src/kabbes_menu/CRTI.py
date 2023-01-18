@@ -2,7 +2,8 @@ import real_time_input
 
 class CRTI( real_time_input.RealTimeInput ):
 
-    cfg_rti = real_time_input.Client().cfg_rti
+    client = real_time_input.Client()
+    cfg_rti = client.cfg_rti
 
     def __init__( self, calling_from ):
         real_time_input.RealTimeInput.__init__( self )

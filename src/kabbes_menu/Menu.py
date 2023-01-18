@@ -1,6 +1,5 @@
 import kabbes_menu
 from parent_class import ParentClass
-import kabbes_user_client
 import py_starter as ps
 import functools
 
