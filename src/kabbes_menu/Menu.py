@@ -1,8 +1,7 @@
+import kabbes_menu
 from parent_class import ParentClass
-from kabbes_menu import CRTI
 import py_starter as ps
 import functools
-
 
 
 def run_wrapper( method ):
@@ -18,34 +17,19 @@ def run_wrapper( method ):
 
     return wrapper
 
-
 class Menu( ParentClass ):
-
-    _BASE_OPTIONS = {
-    1: ['Open Child','run_Child_user'],
-    2: ['','do_nothing'],
-    3: ['','do_nothing'],
-    4: ['','do_nothing'],
-    5: ['','do_nothing'],
-    6: ['','do_nothing'],
-    7: ['','do_nothing'],
-    8: ['Print All Attributes', 'print_all_atts'],
-    9: ['Print Important Attributes', 'print_imp_atts'],
-    }
 
     _OVERRIDE_OPTIONS = {}
     _SEARCHABLE_ATTS = []
     _ONE_LINE_ATTS = ['type']
+    _OPTIONS_CFG_KEY = 'options'
 
     def __init__( self ):
 
         ParentClass.__init__( self )
-        self._Children = []
-        self.RTI = CRTI( self )
 
-        ### Get Options setup
-        self.OPTIONS = self._BASE_OPTIONS.copy()
-        self.OPTIONS.update( self._OVERRIDE_OPTIONS )
+        self._Children = []
+        self.RTI = kabbes_menu.CRTI( self )
 
     def __len__( self ):
         return len(self._Children)
@@ -99,7 +83,8 @@ class Menu( ParentClass ):
         while True:
 
             self.print_one_line_atts()
-            ps.print_for_loop( [ Option[0] for Option in self.OPTIONS.values() ] )
+            for i in [ '{i}. {option_view}'.format( i=key, option_view=value[0] ) for key,value in self.cfg_menu[Menu._OPTIONS_CFG_KEY].get_dict().items() ]:
+                print (i)
             choice, user_input = self.RTI.get_one_input()
 
             if choice != None:
@@ -108,14 +93,9 @@ class Menu( ParentClass ):
 
             if user_input == '':
                 break
-
-            try:
-                user_input = int(user_input)
-            except:
-                continue
-
-            if user_input in self.OPTIONS:
-                self.run_method( self.OPTIONS[user_input][-1] )
+            
+            if user_input in self.cfg_menu[Menu._OPTIONS_CFG_KEY].nodes:
+                self.run_method( self.cfg_menu[Menu._OPTIONS_CFG_KEY].nodes[user_input].get_ref_value()[-1] )
 
         self.exit()
 
