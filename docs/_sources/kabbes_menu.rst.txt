@@ -1,0 +1,37 @@
+kabbes\_menu package
+====================
+
+Submodules
+----------
+
+kabbes\_menu.CRTI module
+------------------------
+
+.. automodule:: kabbes_menu.CRTI
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_menu.Client module
+--------------------------
+
+.. automodule:: kabbes_menu.Client
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+kabbes\_menu.Menu module
+------------------------
+
+.. automodule:: kabbes_menu.Menu
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: kabbes_menu
+   :members:
+   :undoc-members:
+   :show-inheritance:
