@@ -57,6 +57,12 @@ class Menu( ParentClass ):
         Child = ps.get_selection_from_list( list(self), allow_null=True )
         return Child
 
+    def search_Child_user( self ):
+
+        print ('Begin typing to search: ')
+        choice, user_input = self.RTI.get_one_input()
+        return choice
+
     def run_method_user( self ):
         method = input('method: ')
         print ( self.run_method( method ) )
